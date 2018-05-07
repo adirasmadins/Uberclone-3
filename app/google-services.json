@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "980812251613",
+    "firebase_url": "https://smarttrack-4f923.firebaseio.com",
+    "project_id": "smarttrack-4f923",
+    "storage_bucket": "smarttrack-4f923.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:980812251613:android:2ac8c7eb10297239",
+        "android_client_info": {
+          "package_name": "com.simcoder.uber"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "980812251613-bb0cf82rps467rb1f2i7fppsum2lb6l8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.simcoder.uber",
+            "certificate_hash": "345b6796d24dd23bd47375f86a68563a95a6fa99"
+          }
+        },
+        {
+          "client_id": "980812251613-vdfem9ic97mrnroip6atd41qlieu87m4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyDNtOPERHkh-pVxE1aolDc5dL32nHBZQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "980812251613-vdfem9ic97mrnroip6atd41qlieu87m4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

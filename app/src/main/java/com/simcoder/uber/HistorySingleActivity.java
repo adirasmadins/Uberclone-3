@@ -81,9 +81,7 @@ public class HistorySingleActivity extends AppCompatActivity implements OnMapRea
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history_single);
 
-        Intent intent = new Intent(this, PayPalService.class);
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-        startService(intent);
+
 
         polylines = new ArrayList<>();
 
@@ -180,63 +178,11 @@ public class HistorySingleActivity extends AppCompatActivity implements OnMapRea
                 mDriverRatingDb.child(rideId).setValue(rating);
             }
         });
-        if(customerPaid){
-            mPay.setEnabled(false);
-        }else{
-            mPay.setEnabled(true);
-        }
-        mPay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                payPalPayment();
-            }
-        });
+
     }
 
-    private int PAYPAL_REQUEST_CODE = 1;
-    private static PayPalConfiguration config = new PayPalConfiguration()
-            .environment(PayPalConfiguration.ENVIRONMENT_SANDBOX)
-            .clientId(PayPalConfig.PAYPAL_CLIENT_ID);
 
-    private void payPalPayment() {
-        PayPalPayment payment = new PayPalPayment(new BigDecimal(ridePrice), "USD", "Uber Ride",
-                PayPalPayment.PAYMENT_INTENT_SALE);
 
-        Intent intent = new Intent(this, PaymentActivity.class);
-
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, config);
-        intent.putExtra(PaymentActivity.EXTRA_PAYMENT, payment);
-
-        startActivityForResult(intent, PAYPAL_REQUEST_CODE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PAYPAL_REQUEST_CODE){
-            if(resultCode == Activity.RESULT_OK){
-                PaymentConfirmation confirm = data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
-                if(confirm != null){
-                    try{
-                        JSONObject jsonObj = new JSONObject(confirm.toJSONObject().toString());
-
-                        String paymentResponse = jsonObj.getJSONObject("response").getString("state");
-
-                        if(paymentResponse.equals("approved")){
-                            Toast.makeText(getApplicationContext(), "Payment successful", Toast.LENGTH_LONG).show();
-                            historyRideInfoDb.child("customerPaid").setValue(true);
-                            mPay.setEnabled(false);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-            }else{
-                Toast.makeText(getApplicationContext(), "Payment unsuccessful", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 
     @Override
     protected void onDestroy() {
